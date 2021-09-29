@@ -1,12 +1,15 @@
 pipeline{
     agent any
+    tools {
+        maven Maven
+    }
     parameters {
         booleanParam(name: 'CREATE_ARTIFACT', defaultValue: false, description: 'create Artifact')
     }
     stages {
         stage('build code') {
             steps {
-                echo 'build code'
+                sh 'mvn clean compile'
             }
         }
         stage('quality check') {
@@ -18,7 +21,7 @@ pipeline{
                 }
                 stage('component test') {
                     steps {
-                        echo 'component test'
+                        sh 'mvn test'
                     }
                 }
                 stage('integration test') {
@@ -35,7 +38,7 @@ pipeline{
                }
            }
             steps {
-                echo 'create artifact'
+                sh 'mvn install'
             }
         }
     }
