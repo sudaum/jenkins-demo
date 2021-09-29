@@ -4,7 +4,7 @@ pipeline{
         maven 'Maven'
     }
     parameters {
-        booleanParam(name: 'CREATE_ARTIFACT', defaultValue: false, description: 'create Artifact')
+        create_artifacts: booleanParam(name: 'create artifact', defaultValue: false, description: 'create Artifact')
     }
     stages {
         stage('build code') {
@@ -34,7 +34,7 @@ pipeline{
         stage('create artifact') {
            when {
                expression {
-                   env.CREATE_ARTIFACT
+                   params.create_artifacts
                }
            }
             steps {
