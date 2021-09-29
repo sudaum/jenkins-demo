@@ -1,7 +1,7 @@
 pipeline{
     agent any
     tools {
-        maven Maven
+        maven 'Maven'
     }
     parameters {
         booleanParam(name: 'CREATE_ARTIFACT', defaultValue: false, description: 'create Artifact')
