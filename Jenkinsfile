@@ -29,9 +29,11 @@ pipeline{
             }
         }
         stage('create artifact') {
-            when {
-                env.CREATE_ARTIFACT
-            }
+           when {
+               expression {
+                   env.CREATE_ARTIFACT
+               }
+           }
             steps {
                 echo 'create artifact'
             }
