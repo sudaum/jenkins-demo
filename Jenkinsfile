@@ -19,7 +19,7 @@ pipeline{
                         echo 'build code'
                     }
                 }
-                stage('test') {
+                stage('tests') {
                     stages {
                         stage('component test')  {
                             steps {
