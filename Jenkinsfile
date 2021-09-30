@@ -20,17 +20,17 @@ pipeline{
                     }
                 }
                 stage('test') {
-                    stages('component test')  {
-                        stage {
+                    stages {
+                        stage('component test')  {
                             steps {
                                 sh 'mvn test'
                             }
                         }
-                    stage('integration test') {
-                        steps {
-                             sh 'mvn verify -P inttest'
+                        stage('integration test') {
+                            steps {
+                                 sh 'mvn verify -P inttest'
+                            }
                         }
-                    }
                     }
                 }
             }
