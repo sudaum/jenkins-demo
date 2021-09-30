@@ -19,14 +19,18 @@ pipeline{
                         echo 'build code'
                     }
                 }
-                stage('component test') {
-                    steps {
-                        sh 'mvn test'
+                stage('test') {
+                    stages('component test')  {
+                        stage {
+                            steps {
+                                sh 'mvn test'
+                            }
+                        }
+                    stage('integration test') {
+                        steps {
+                             sh 'mvn verify -P inttest'
+                        }
                     }
-                }
-                stage('integration test') {
-                    steps {
-                        echo 'integration test'
                     }
                 }
             }
