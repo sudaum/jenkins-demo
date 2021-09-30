@@ -15,6 +15,8 @@
     <description>jenkins-demo</description>
     <properties>
         <java.version>11</java.version>
+        <skip.test.component>false</skip.test.component>
+        <skip.test.integration>true</skip.test.integration>
     </properties>
     <dependencies>
         <dependency>
@@ -61,8 +63,45 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skip.test.component}</skipTests>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <skipTests>${skip.test.integration}</skipTests>
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/*Test.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>inttest</id>
+            <properties>
+                <skip.test.component>true</skip.test.component>
+                <skip.test.integration>false</skip.test.integration>
+            </properties>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <id>spring-milestones</id>
